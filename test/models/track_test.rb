@@ -10,6 +10,24 @@ class TrackTest < ActiveSupport::TestCase
     assert track.respond_to?(:milliseconds)
   end
 
+  test "a track is shown for many different invoice items" do
+    track = Track.create(name: "Hot Track")
+
+    track.invoice_items.create
+    track.invoice_items.create
+
+    assert_equal 2, track.invoice_items.count
+  end
+
+  test "a track is associated on many different invoices as many different invoice items" do
+    track = Track.create(name: "Hot Track")
+
+    track.invoices.create
+    track.invoices.create
+
+    assert_equal 2, track.invoice_items.count
+  end
+
   test "a track is associated with a genre" do
     genre = Genre.create(name: "R&B")
     track = Track.create(name: "Big Poppa", genre: genre)
