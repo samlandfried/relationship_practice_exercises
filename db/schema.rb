@@ -11,15 +11,49 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170330170706) do
+ActiveRecord::Schema.define(version: 20170330174524) do
 
   create_table "albums", force: :cascade do |t|
     t.string "title"
   end
 
+  create_table "customers", force: :cascade do |t|
+    t.string  "first_name"
+    t.string  "last_name"
+    t.string  "company"
+    t.string  "address"
+    t.string  "city"
+    t.string  "phone"
+    t.string  "fax"
+    t.string  "email"
+    t.integer "employee_id"
+  end
+
+  add_index "customers", ["employee_id"], name: "index_customers_on_employee_id"
+
+  create_table "employees", force: :cascade do |t|
+    t.string "email"
+    t.string "fax"
+    t.string "phone"
+    t.string "address"
+    t.date   "hire_date"
+    t.date   "birth_date"
+    t.string "title"
+    t.string "last_name"
+    t.string "first_name"
+  end
+
   create_table "genres", force: :cascade do |t|
     t.string "name"
   end
+
+  create_table "invoices", force: :cascade do |t|
+    t.date    "date"
+    t.string  "total"
+    t.integer "customer_id"
+  end
+
+  add_index "invoices", ["customer_id"], name: "index_invoices_on_customer_id"
 
   create_table "media_types", force: :cascade do |t|
     t.string "name"
